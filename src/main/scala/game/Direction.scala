@@ -1,3 +1,5 @@
+package game
+
 
 sealed abstract class Direction(val xStep: Int, val yStep: Int) {
 
@@ -21,7 +23,7 @@ sealed abstract class Direction(val xStep: Int, val yStep: Int) {
     private val  Key = scala.swing.event.Key
     private val ArrowToDir = Map(Key.Up -> Up, Key.Left -> Left, Key.Down-> Down, Key.Right-> Right)
 
-    def fromArrowKey(key: Key): Direction = ArrowToDir.get(key)*/
+    def fromArrowKey(key: Key): game.Direction = ArrowToDir.get(key)*/
   }
 
 }

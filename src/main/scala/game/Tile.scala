@@ -1,3 +1,5 @@
+package game
+
 sealed trait Tile {
 
   def isUnpassable: Boolean

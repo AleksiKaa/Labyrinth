@@ -1,3 +1,5 @@
+package game
+
 class Game(width: Int, height: Int) extends Grid[Tile](width, height){
 
   private def initialSquare(x: Int, y:Int) = {

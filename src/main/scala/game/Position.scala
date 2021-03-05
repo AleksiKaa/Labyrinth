@@ -1,3 +1,4 @@
+package game
 
 case class Position(val x: Int, val y: Int) {
 
@@ -7,5 +8,4 @@ case class Position(val x: Int, val y: Int) {
 
   def neighbor(direction: Direction): Position = this.relative(direction, 1)
 
-  }
-
+}
