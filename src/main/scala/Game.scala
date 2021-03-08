@@ -1,4 +1,4 @@
-package game
+
 
 class Game(width: Int, height: Int) extends Grid[Tile](width, height){
 
@@ -7,6 +7,6 @@ class Game(width: Int, height: Int) extends Grid[Tile](width, height){
     else Wall
   }
 
-  def initialElements = for (y <- 0 until this.height; x <- 0 until this.width) yield initialSquare(x, y)
+  //def initialElements = for (y <- 0 until this.height; x <- 0 until this.width) yield initialSquare(x, y)
 
 }
