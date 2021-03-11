@@ -4,11 +4,8 @@ import scalafx.scene.shape.Circle
 import scalafx.scene.paint.Color._
 import scalafx.scene.layout.GridPane
 import scalafx.Includes._
-import scalafx.scene.control.Label
 import scalafx.scene.input._
-
 import scala.collection.mutable.Buffer
-import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 
 object GameApp extends JFXApp {
