@@ -20,9 +20,5 @@ sealed abstract class Direction(val xStep: Int, val yStep: Int) {
     private val next = clockwise.zip(clockwise.tail ++ clockwise.init).toMap
     private val previous = this.next.map( _.swap )
 
-    /*private type Key = scala.swing.event.Key.Value
-    private val  Key = scala.swing.event.Key
-    private val ArrowToDir = Map(Key.Up -> Up, Key.Left -> Left, Key.Down-> Down, Key.Right-> Right)
 
-    def fromArrowKey(key: Key): Direction = ArrowToDir.get(key)*/
   }

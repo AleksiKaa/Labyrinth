@@ -1,4 +1,3 @@
-import java.util.concurrent.BrokenBarrierException
 import scala.reflect.ClassTag
 
 abstract class Grid[Tile: ClassTag](val x :Int, val y :Int) {

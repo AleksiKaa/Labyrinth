@@ -1,4 +1,3 @@
-
 trait Tile {
 
   var conPlayer: Boolean
@@ -17,6 +16,8 @@ object Wall extends Tile {
 
   def containsPlayer = conPlayer
 
+  override def toString = "Wall"
+
 }
 
 class Path extends Tile {
@@ -27,8 +28,13 @@ class Path extends Tile {
 
   def containsPlayer = conPlayer
 
+  override def toString = "Path"
+
 }
 
-class Bridge extends Path
+class Bridge extends Path {
 
+  override def toString = "Bridge"
+
+}
 
