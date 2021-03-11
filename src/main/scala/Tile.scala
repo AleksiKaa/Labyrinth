@@ -1,5 +1,7 @@
 
-sealed trait Tile {
+trait Tile {
+
+  var conPlayer: Boolean
 
   def isUnpassable: Boolean
 
@@ -9,9 +11,11 @@ sealed trait Tile {
 
 object Wall extends Tile {
 
+  var conPlayer = false
+
   def isUnpassable = true
 
-  def containsPlayer: Boolean = false
+  def containsPlayer = conPlayer
 
 }
 
