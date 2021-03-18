@@ -1,0 +1,9 @@
+18.03.21
+
+First I created rough versions of classes Grid, Position, Direction and Game.
+Started fiddling with swing, decided to use scalafx instead because course material had good tutorials on the subject.
+Then I focused on getiing something, anything showing up on the GUI.
+Had a problem with using match for Tiles, solved the problem by overriding each subclasses toString method and using match on toString ie. tile.toString match
+I decided to use a GridPane for the GUI.
+Also got a gameview with game elements showing on the screen when running GUI.
+Time used ~10h maybe a bit more.
