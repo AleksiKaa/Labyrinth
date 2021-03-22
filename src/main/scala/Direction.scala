@@ -14,6 +14,8 @@ sealed abstract class Direction(val xStep: Int, val yStep: Int) {
 
     case object Left  extends Direction(-1, 0)
 
+    case object NoDir extends Direction(0, 0)
+
     val clockwise = Vector[Direction](Up, Right, Down, Left)
     val count = clockwise.size
 

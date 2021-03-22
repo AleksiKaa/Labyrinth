@@ -9,10 +9,17 @@ class Game(width: Int) extends Grid[Tile](width, width){
     else Wall
   }
 
+  def canMove(dir: Direction) = {
+    elementAt(player.location.neighbor(dir)).toString == "Path" ||
+    elementAt(player.location.neighbor(dir)).toString == "Bridge" && dir == player.lastDirection
+  }
+
   def playerMove(dir: Direction) = {
+    if (canMove(dir)) {
     this.elementAt(player.location).conPlayer = false
     this.player.move(dir)
     this.elementAt(player.location).conPlayer = true
+    }
   }
 
 

@@ -7,6 +7,7 @@ import scalafx.Includes._
 import scalafx.scene.input._
 import scala.collection.mutable.Buffer
 import scalafx.scene.Scene
+import Direction._
 
 object GameApp extends JFXApp {
     stage = new JFXApp.PrimaryStage{
@@ -41,25 +42,29 @@ object GameApp extends JFXApp {
            }
          }
 
-         grid.add(player, xCounter, yCounter)
-         content = grid
+        grid.add(player, xCounter, yCounter)
+        content = grid
 
         onKeyPressed = (key: KeyEvent) => {
         key.code match {
-            case KeyCode.W => if (grid.getChildren.length == objects.length) {} else grid.getChildren.remove(grid.getChildren.last)
-                if (yCounter > 0) yCounter -= 1
+            case KeyCode.W => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+                if (yCounter > 0 && game.canMove(Up)) yCounter -= 1
+                game.playerMove(Up)
                 grid.add(player, xCounter, yCounter)
                 content = grid
-            case KeyCode.A => if (grid.getChildren.length == objects.length) {} else grid.getChildren.remove(grid.getChildren.last)
-                if (xCounter > 0) xCounter -= 1
+            case KeyCode.A => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+                if (xCounter > 0 && game.canMove(Left)) xCounter -= 1
+                game.playerMove(Left)
                 grid.add(player, xCounter, yCounter)
                 content = grid
-            case KeyCode.S => if (grid.getChildren.length == objects.length) {} else grid.getChildren.remove(grid.getChildren.last)
-                if (yCounter < size - 1) yCounter += 1
+            case KeyCode.S => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+                if (yCounter < size - 1 && game.canMove(Down)) yCounter += 1
+                game.playerMove(Down)
                 grid.add(player, xCounter, yCounter)
                 content = grid
-            case KeyCode.D => if (grid.getChildren.length == objects.length) {} else grid.getChildren.remove(grid.getChildren.last)
-                if(xCounter < size - 1) xCounter += 1
+            case KeyCode.D => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+                if(xCounter < size - 1 && game.canMove(Right)) xCounter += 1
+                game.playerMove(Right)
                 grid.add(player, xCounter, yCounter)
                 content = grid
             case KeyCode.Escape => Platform.exit()
