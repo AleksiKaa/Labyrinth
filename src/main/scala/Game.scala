@@ -5,13 +5,18 @@ class Game(width: Int) extends Grid[Tile](width, width){
   elementAt(player.location).conPlayer = true
 
   private def initialSquare(x: Int, y: Int) = {
-    if ((x >= 1 && x < width - 1) && (y >= 1 && y < width - 1)) new Path
+    /*if ((x >= 1 && x < width - 1) && (y >= 1 && y < width - 1)) new Path
+    else Wall
+     */
+    if ( x == 5 && y == 5) new Bridge
+    else if ((x >= 1 && x < width - 1) && (y >= 1 && y < width - 1)) new Path
     else Wall
   }
 
   def canMove(dir: Direction) = {
-    elementAt(player.location.neighbor(dir)).toString == "Path" ||
-    elementAt(player.location.neighbor(dir)).toString == "Bridge" && dir == player.lastDirection
+    elementAt(player.location.neighbor(dir)).toString == "Path" && elementAt(player.location).toString != "Bridge" ||
+    elementAt(player.location.neighbor(dir)).toString == "Bridge" ||
+    elementAt(player.location).toString == "Bridge" && (dir == player.lastDirection || dir == player.lastDirection.!)
   }
 
   def playerMove(dir: Direction) = {

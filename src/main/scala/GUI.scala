@@ -36,7 +36,11 @@ object GameApp extends JFXApp {
                          fill = null
                          stroke = Black
                          }, i, j)
-                     case "Bridge" => // not implemented
+                     case "Bridge" => grid.add(new Rectangle {
+                         width = 50
+                         height = 50
+                         fill = Red
+                         }, i, j)
                      case _ =>        //???
              }
            }
