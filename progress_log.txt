@@ -7,3 +7,15 @@ Had a problem with using match for Tiles, solved the problem by overriding each 
 I decided to use a GridPane for the GUI.
 Also got a gameview with game elements showing on the screen when running GUI.
 Time used ~10h maybe a bit more.
+
+---
+
+22.03.21
+
+Game logic implemented into the gui. First I made it so that the gui tracks and updates the Game class's players location, and before moving the player, the game checks if it's possible.
+First task was to make a method to Game that checks if the player is allowed to move in a direction (canMove).
+Then little by little, all game logic was added to the gui. All game elements are now working as intended.
+After that, I started to look for sprites for the game. I found cool player sprites that were free to use in a sprite hosting website.
+Also I made a sprite for Bridge and added that to the project.
+Then I made the gui so that it loads the sprites, and adds them to the scene.
+Time used today ~3 hours.

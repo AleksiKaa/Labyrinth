@@ -1,22 +1,20 @@
 import scalafx.application.{JFXApp, Platform}
 import scalafx.scene.shape.Rectangle
-import scalafx.scene.shape.Circle
 import scalafx.scene.paint.Color._
 import scalafx.scene.layout.GridPane
 import scalafx.Includes._
 import scalafx.scene.input._
-
 import scala.collection.mutable.Buffer
 import scalafx.scene.Scene
 import Direction._
 import scalafx.scene.image.{Image, ImageView}
-
 import java.io.FileInputStream
 
 object GameApp extends JFXApp {
     stage = new JFXApp.PrimaryStage{
      title = "AAA"
      scene = new Scene(1100,1100) {
+
          val grid = new GridPane()
          val size = 21
          val pSize = 50
