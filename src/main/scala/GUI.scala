@@ -4,7 +4,6 @@ import scalafx.scene.paint.Color._
 import scalafx.scene.layout.GridPane
 import scalafx.Includes._
 import scalafx.scene.input._
-import scala.collection.mutable.Buffer
 import scalafx.scene.Scene
 import Direction._
 import scalafx.scene.image.{Image, ImageView}
@@ -19,7 +18,6 @@ object GameApp extends JFXApp {
          val size = 21
          val pSize = 50
          val game = new Game(size)
-         val objects = Buffer[Tile]()
          var xCounter = game.player.location.x
          var yCounter = game.player.location.y
 
@@ -27,7 +25,7 @@ object GameApp extends JFXApp {
          val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\beardown.png") , pSize, pSize, false, false))
          val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\bearleft.png") , pSize, pSize, false, false))
          val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\bearright.png"), pSize, pSize, false, false))
-         val bridge = new ImageView(new Image(new FileInputStream("src\\main\\images\\bridge.png")   , pSize, pSize, false, false))
+         val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
          var player = down
 
          for (i <- 0 until game.x) {
@@ -44,7 +42,7 @@ object GameApp extends JFXApp {
                          fill = null
                          stroke = null
                          }, i, j)
-                     case "Bridge" => grid.add(bridge, i, j)
+                     case "Bridge" => grid.add(new ImageView(bridge), i, j)
                      case _ =>        //???
              }
            }
@@ -55,31 +53,41 @@ object GameApp extends JFXApp {
 
         onKeyPressed = (key: KeyEvent) => {
         key.code match {
-            case KeyCode.W => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+
+            case KeyCode.W =>
+                grid.getChildren.remove(grid.getChildren.last)
                 if (yCounter > 0 && game.canMove(Up)) yCounter -= 1
                 game.playerMove(Up)
                 player = up
                 grid.add(player, xCounter, yCounter)
                 content = grid
-            case KeyCode.A => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+
+            case KeyCode.A =>
+                grid.getChildren.remove(grid.getChildren.last)
                 if (xCounter > 0 && game.canMove(Left)) xCounter -= 1
                 game.playerMove(Left)
                 player = left
                 grid.add(player, xCounter, yCounter)
                 content = grid
-            case KeyCode.S => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+
+            case KeyCode.S =>
+                grid.getChildren.remove(grid.getChildren.last)
                 if (yCounter < size - 1 && game.canMove(Down)) yCounter += 1
                 game.playerMove(Down)
                 player = down
                 grid.add(player, xCounter, yCounter)
                 content = grid
-            case KeyCode.D => if (grid.getChildren.length != objects.length) grid.getChildren.remove(grid.getChildren.last)
+
+            case KeyCode.D =>
+                grid.getChildren.remove(grid.getChildren.last)
                 if(xCounter < size - 1 && game.canMove(Right)) xCounter += 1
                 game.playerMove(Right)
                 player = right
                 grid.add(player, xCounter, yCounter)
                 content = grid
+
             case KeyCode.Escape => Platform.exit()
+
             case _ =>
           }
         }

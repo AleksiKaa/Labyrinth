@@ -13,7 +13,7 @@ abstract class Grid[Tile: ClassTag](val x :Int, val y :Int) {
   }
 
   def elementAt(location: Position) = {
-    require(this.contains(location), s"location doesn't exist")
+    require(this.contains(location), "location doesn't exist")
     this.contents(location.x)(location.y)
   }
 
@@ -21,4 +21,9 @@ abstract class Grid[Tile: ClassTag](val x :Int, val y :Int) {
 
   def contains(location: Position): Boolean = this.contains(location.x, location.y)
 
+  def update(pos: Position, tile: Tile) = {
+    require(this.contains(pos), "No such Position")
+    this.contents(pos.x)(pos.y) = tile
   }
+
+}
