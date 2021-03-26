@@ -17,7 +17,7 @@ abstract class Grid[Tile: ClassTag](val x :Int, val y :Int) {
     this.contents(location.x)(location.y)
   }
 
-  private def contains(x: Int, y: Int) = (x >= 0) && (x <= this.x) && (y >= 0) && (y <= this.y)
+  private def contains(x: Int, y: Int) = (x >= 0) && (x <= this.x - 1) && (y >= 0) && (y <= this.y - 1)
 
   def contains(location: Position): Boolean = this.contains(location.x, location.y)
 

@@ -18,6 +18,7 @@ object GameApp extends JFXApp {
          val size = 21
          val pSize = 50
          val game = new Game(size)
+         val mazeCreator = new MazeCreator(game)
          var xCounter = game.player.location.x
          var yCounter = game.player.location.y
 
@@ -27,6 +28,8 @@ object GameApp extends JFXApp {
          val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\bearright.png"), pSize, pSize, false, false))
          val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
          var player = down
+
+         //mazeCreator.mazeCreator()
 
          for (i <- 0 until game.x) {
              for (j <- 0 until game.y) {
