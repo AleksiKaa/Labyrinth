@@ -38,3 +38,12 @@ class Bridge extends Path {
 
 }
 
+object Goal extends Tile {
+
+  var conPlayer = false
+
+  def isUnpassable = false
+
+  def containsPlayer = conPlayer
+}
+
