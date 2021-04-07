@@ -15,7 +15,7 @@ object GameApp extends JFXApp {
      scene = new Scene(1100,1100) {
 
          val grid = new GridPane()
-         val size = 51
+         val size = 11
          val pSize = 20
          val game = new Game(size)
          val mazeCreator = new MazeCreator(game)
@@ -46,6 +46,11 @@ object GameApp extends JFXApp {
                          stroke = null
                          }, i, j)
                      case "Bridge" => grid.add(new ImageView(bridge), i, j)
+                     case "Goal" => grid.add(new Rectangle {
+                         width = pSize
+                         height = pSize
+                         fill = Yellow
+                         }, i, j)
                      case _ =>        //???
              }
            }

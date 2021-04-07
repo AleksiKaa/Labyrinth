@@ -1,5 +1,6 @@
 import Direction._
 import scala.util.Random
+import scala.collection.mutable.Buffer
 
 class MazeCreator(game: Game) {
 
@@ -31,6 +32,51 @@ class MazeCreator(game: Game) {
       }
     }
     carve(game.player.location)
+    game.update(goalPos(), Goal)
   }
 
+  def goalPos(): Position = {                // returns a Position that is on the edge of the Grid and it has atleast one neighbor that is a Path
+
+    var goal: Position = null
+    val a = Buffer[Position]()
+
+    def fillPos() = {
+      for (i <- 0 until game.width) {
+        for (j <- 0 until game.width) {
+          a += new Position(i, j)
+        }
+      }
+    }
+
+    def randomPos(): Unit = {
+
+      def rando(n: Int): Unit = {
+
+        val candidate = a(random.nextInt(n))
+
+        var dirToCenter: Direction = NoDir
+
+        candidate.x match {
+          case 0 => dirToCenter = Right
+          case game.width => dirToCenter = Left
+          case _ =>
+        }
+        candidate.y match {
+          case 0 => dirToCenter = Down
+          case game.width => dirToCenter = Up
+          case _ =>
+        }
+        if (dirToCenter != NoDir && game.elementAt(candidate.neighbor(dirToCenter)).toString == "Path") {
+          goal = candidate
+        } else {
+          a -= candidate
+          rando(n - 1)
+        }
+      }
+      fillPos()
+      rando(game.width * game.width + 1)
+    }
+    randomPos()
+    goal
+  }
 }

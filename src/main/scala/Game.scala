@@ -19,7 +19,7 @@ class Game(val width: Int) extends Grid[Tile](width, width){
   def initialElements: Seq[Tile] = for (y <- 0 until this.width; x <- 0 until this.width) yield initialSquare(x, y)
 
   def canMove(dir: Direction) = {
-    elementAt(player.location.neighbor(dir)).toString == "Path" && elementAt(player.location).toString != "Bridge" ||
+    elementAt(player.location.neighbor(dir)).toString == "Path" || elementAt(player.location.neighbor(dir)).toString == "Goal" && elementAt(player.location).toString != "Bridge" ||
     elementAt(player.location.neighbor(dir)).toString == "Bridge" ||
     elementAt(player.location).toString == "Bridge" && (dir == player.lastDirection || dir == player.lastDirection.! || player.lastDirection == NoDir)
   }
