@@ -22,10 +22,10 @@ object GameApp extends JFXApp {
          var xCounter = game.player.location.x
          var yCounter = game.player.location.y
 
-         val up     = new ImageView(new Image(new FileInputStream("src\\main\\images\\bearup.png")   , pSize, pSize, false, false))
-         val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\beardown.png") , pSize, pSize, false, false))
-         val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\bearleft.png") , pSize, pSize, false, false))
-         val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\bearright.png"), pSize, pSize, false, false))
+         val up     = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowup.png")   , pSize, pSize, false, false))
+         val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png") , pSize, pSize, false, false))
+         val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png") , pSize, pSize, false, false))
+         val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
          val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
          var player = down
 
