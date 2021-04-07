@@ -9,33 +9,28 @@ class MazeCreator(game: Game) {
 
   def mazeCreator() = {
 
-    def maze(pos: Position, n: Int): Unit = {
+    def carve(pos: Position): Unit = {
 
-      if (n < 10) {
+      var dir = random.nextInt().abs % 4
+      var count = 0
 
-        var dir: Direction = NoDir
+      while (count < 4) {
 
-        directions(random.nextInt(4)) match {
-          case Up => dir = Up
-          case Right => dir = Right
-          case Down => dir = Down
-          case Left => dir = Left
+        val tile1 = pos.neighbor(directions(dir))
+        val tile2 = tile1.neighbor(directions(dir))
+
+        if (tile2.x > 0 && tile2.x < game.width && tile2.y > 0 && tile2.y < game.width) {
+          if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Wall) {
+            game.update(tile1, new Path)
+            game.update(tile2, new Path)
+            carve(tile2)
+          }
         }
-
-        if (game.contains(pos.neighbor(dir))) {
-
-          val tile1 = if (game.elementAt(pos.neighbor(dir)) == Wall) new Path else new Bridge
-          val tile2 = if (game.elementAt(pos.neighbor(dir).neighbor(dir)) == Wall) new Path else new Bridge
-
-          game.update(pos.neighbor(dir), tile1)
-          game.update(pos.neighbor(dir).neighbor(dir), tile2)
-          maze(pos.neighbor(dir).neighbor(dir), n)
-
-        } else maze(game.player.location, n + 1)
+        count += 1
+        dir = (dir + 1) % 4
       }
     }
-    maze(game.player.location, 1)
+    carve(game.player.location)
   }
-
 
 }

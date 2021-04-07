@@ -1,6 +1,6 @@
 import Direction._
 
-class Game(width: Int) extends Grid[Tile](width, width){
+class Game(val width: Int) extends Grid[Tile](width, width){
 
   val pLoc = width - width / 2 - 1
   val player = new Player(new Position(pLoc, pLoc))
@@ -8,11 +8,11 @@ class Game(width: Int) extends Grid[Tile](width, width){
 
   private def initialSquare(x: Int, y: Int) = {
     //used in making a game world where testing of the game elements is possible
-    if ( x == 5 && y == 5 || x == 10 && y == 10) new Bridge
+    /*if ( x == 5 && y == 5 || x == 10 && y == 10) new Bridge
     else if ((x >= 1 && x < width - 1) && (y >= 1 && y < width - 1)) new Path
-    else Wall
+    else Wall*/
 
-    //Wall
+    Wall
 
   }
 

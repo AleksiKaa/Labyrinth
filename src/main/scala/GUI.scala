@@ -15,8 +15,8 @@ object GameApp extends JFXApp {
      scene = new Scene(1100,1100) {
 
          val grid = new GridPane()
-         val size = 21
-         val pSize = 50
+         val size = 51
+         val pSize = 20
          val game = new Game(size)
          val mazeCreator = new MazeCreator(game)
          var xCounter = game.player.location.x
@@ -29,19 +29,19 @@ object GameApp extends JFXApp {
          val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
          var player = down
 
-         //mazeCreator.mazeCreator()
+         mazeCreator.mazeCreator()
 
          for (i <- 0 until game.x) {
              for (j <- 0 until game.y) {
                  game.elementAt(new Position(i, j)).toString match {
                      case "Wall" => grid.add(new Rectangle {
-                         width = 50
-                         height = 50
+                         width = pSize
+                         height = pSize
                          fill = Black
                          }, i, j)
                      case "Path" => grid.add(new Rectangle {
-                         width = 50
-                         height = 50
+                         width = pSize
+                         height = pSize
                          fill = null
                          stroke = null
                          }, i, j)
