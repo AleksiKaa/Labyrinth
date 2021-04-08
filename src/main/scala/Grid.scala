@@ -12,6 +12,8 @@ abstract class Grid[Tile: ClassTag](val x :Int, val y :Int) {
     elems.toArray.grouped(this.x).toArray.transpose
   }
 
+  def content() = contents
+
   def elementAt(location: Position) = {
     require(this.contains(location), "location doesn't exist")
     this.contents(location.x)(location.y)

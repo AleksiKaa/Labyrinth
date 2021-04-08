@@ -20,13 +20,13 @@ class MazeCreator(game: Game) {
         val tile1 = pos.neighbor(directions(dir))
         val tile2 = tile1.neighbor(directions(dir))
 
-        if (tile2.x > 0 && tile2.x < game.width && tile2.y > 0 && tile2.y < game.width) {
-          if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Wall) {
-            game.update(tile1, new Path)
-            game.update(tile2, new Path)
-            carve(tile2)
+          if (tile2.x > 0 && tile2.x < game.width - 1 && tile2.y > 0 && tile2.y < game.width - 1) {
+            if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Wall) {
+              game.update(tile1, new Path)
+              game.update(tile2, new Path)
+              carve(tile2)
+            }
           }
-        }
         count += 1
         dir = (dir + 1) % 4
       }
@@ -38,45 +38,23 @@ class MazeCreator(game: Game) {
   def goalPos(): Position = {                // returns a Position that is on the edge of the Grid and it has atleast one neighbor that is a Path
 
     var goal: Position = null
-    val a = Buffer[Position]()
 
-    def fillPos() = {
-      for (i <- 0 until game.width) {
-        for (j <- 0 until game.width) {
-          a += new Position(i, j)
-        }
-      }
+    def randompos(): Unit = {
+
+      def onEdge(pos: Position) = !(pos.x > 1 && pos.x < game.width - 1 && pos.y > 1 && pos.y < game.width - 1)
+
+      def neighborIsPath(pos: Position) = pos.neighbors().filter(game.contains(_)).map( game.elementAt(_).toString ).contains( "Path" )
+
+      val randomPos = new Position(random.nextInt(game.width), random.nextInt(game.width))
+
+      val candidate = game.content()(randomPos.x)(randomPos.y)
+
+      if (candidate == Wall && onEdge(randomPos) && neighborIsPath(randomPos)) goal = randomPos
+      else randompos()
     }
-
-    def randomPos(): Unit = {
-
-      def rando(n: Int): Unit = {
-
-        val candidate = a(random.nextInt(n))
-
-        var dirToCenter: Direction = NoDir
-
-        candidate.x match {
-          case 0 => dirToCenter = Right
-          case game.width => dirToCenter = Left
-          case _ =>
-        }
-        candidate.y match {
-          case 0 => dirToCenter = Down
-          case game.width => dirToCenter = Up
-          case _ =>
-        }
-        if (dirToCenter != NoDir && game.elementAt(candidate.neighbor(dirToCenter)).toString == "Path") {
-          goal = candidate
-        } else {
-          a -= candidate
-          rando(n - 1)
-        }
-      }
-      fillPos()
-      rando(game.width * game.width + 1)
-    }
-    randomPos()
+    randompos()
     goal
   }
+
+
 }

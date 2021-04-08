@@ -11,11 +11,11 @@ import java.io.FileInputStream
 
 object GameApp extends JFXApp {
     stage = new JFXApp.PrimaryStage{
-     title = "AAA"
+     title = "Maze Game"
      scene = new Scene(1100,1100) {
 
          val grid = new GridPane()
-         val size = 11
+         val size = 51
          val pSize = 20
          val game = new Game(size)
          val mazeCreator = new MazeCreator(game)
