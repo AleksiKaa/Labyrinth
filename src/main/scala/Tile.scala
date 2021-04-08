@@ -45,5 +45,7 @@ object Goal extends Tile {
   def isUnpassable = false
 
   def containsPlayer = conPlayer
+
+  override def toString = "Goal"
 }
 

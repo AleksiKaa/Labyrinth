@@ -69,6 +69,7 @@ object GameApp extends JFXApp {
                 player = up
                 grid.add(player, xCounter, yCounter)
                 content = grid
+                if (game.isComplete) println("jee!")                     //to be modified
 
             case KeyCode.A =>
                 grid.getChildren.remove(grid.getChildren.last)
@@ -77,6 +78,7 @@ object GameApp extends JFXApp {
                 player = left
                 grid.add(player, xCounter, yCounter)
                 content = grid
+                if (game.isComplete) println("jee!")
 
             case KeyCode.S =>
                 grid.getChildren.remove(grid.getChildren.last)
@@ -85,6 +87,7 @@ object GameApp extends JFXApp {
                 player = down
                 grid.add(player, xCounter, yCounter)
                 content = grid
+                if (game.isComplete) println("jee!")
 
             case KeyCode.D =>
                 grid.getChildren.remove(grid.getChildren.last)
@@ -93,12 +96,15 @@ object GameApp extends JFXApp {
                 player = right
                 grid.add(player, xCounter, yCounter)
                 content = grid
+                if (game.isComplete) println("jee!")
 
             case KeyCode.Escape => Platform.exit()
 
             case _ =>
           }
         }
+
+         if (game.elementAt(game.player.location).toString == "Goal") println("jee!")
       }
     }
 }

@@ -31,4 +31,6 @@ class Game(val width: Int) extends Grid[Tile](width, width){
     this.elementAt(player.location).conPlayer = true
     }
   }
+
+  def isComplete = if (elementAt(this.player.location) == Goal) true else false
 }
