@@ -1,6 +1,5 @@
 import Direction._
 import scala.util.Random
-import scala.collection.mutable.Buffer
 
 class MazeCreator(game: Game) {
 
