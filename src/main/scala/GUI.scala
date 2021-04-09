@@ -15,7 +15,7 @@ object GameApp extends JFXApp {
      scene = new Scene(1100,1100) {
 
          val grid = new GridPane()
-         val size = 51
+         val size = 31
          val pSize = 20
          val game = new Game(size)
          val mazeCreator = new MazeCreator(game)
@@ -26,7 +26,7 @@ object GameApp extends JFXApp {
          val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png") , pSize, pSize, false, false))
          val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png") , pSize, pSize, false, false))
          val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
-         val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
+         val bridge = new Image(new FileInputStream("src\\main\\images\\Bridge1.png"), pSize, pSize, false, false)
          var player = down
 
          mazeCreator.mazeCreator()
