@@ -15,7 +15,7 @@ object GameApp extends JFXApp {
      scene = new Scene(1100,1100) {
 
          val grid = new GridPane()
-         val size = 31
+         val size = 52
          val pSize = 20
          val game = new Game(size)
          val mazeCreator = new MazeCreator(game)
@@ -26,7 +26,10 @@ object GameApp extends JFXApp {
          val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png") , pSize, pSize, false, false))
          val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png") , pSize, pSize, false, false))
          val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
-         val bridge = new Image(new FileInputStream("src\\main\\images\\Bridge1.png"), pSize, pSize, false, false)
+         val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
+         val wall   = new Image(new FileInputStream("src\\main\\images\\wall.png")  , pSize, pSize, false, false)
+         val path   = new Image(new FileInputStream("src\\main\\images\\path.png")  , pSize, pSize, false, false)
+         val goal   = new Image(new FileInputStream("src\\main\\images\\goal.png")  , pSize, pSize, false, false)
          var player = down
 
          mazeCreator.mazeCreator()
@@ -34,23 +37,10 @@ object GameApp extends JFXApp {
          for (i <- 0 until game.x) {
              for (j <- 0 until game.y) {
                  game.elementAt(new Position(i, j)).toString match {
-                     case "Wall" => grid.add(new Rectangle {
-                         width = pSize
-                         height = pSize
-                         fill = Black
-                         }, i, j)
-                     case "Path" => grid.add(new Rectangle {
-                         width = pSize
-                         height = pSize
-                         fill = null
-                         stroke = null
-                         }, i, j)
+                     case "Wall"   => grid.add(new ImageView(wall), i, j)
+                     case "Path"   => grid.add(new ImageView(path), i, j)
                      case "Bridge" => grid.add(new ImageView(bridge), i, j)
-                     case "Goal" => grid.add(new Rectangle {
-                         width = pSize
-                         height = pSize
-                         fill = Yellow
-                         }, i, j)
+                     case "Goal"   => grid.add(new ImageView(goal), i, j)
                      case _ =>        //???
              }
            }
