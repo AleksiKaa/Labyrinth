@@ -1,6 +1,4 @@
 import scalafx.application.{JFXApp, Platform}
-import scalafx.scene.shape.Rectangle
-import scalafx.scene.paint.Color._
 import scalafx.scene.layout.GridPane
 import scalafx.Includes._
 import scalafx.scene.input._
@@ -93,8 +91,6 @@ object GameApp extends JFXApp {
             case _ =>
           }
         }
-
-         if (game.elementAt(game.player.location).toString == "Goal") println("jee!")
       }
     }
 }
