@@ -18,14 +18,42 @@ class MazeCreator(game: Game) {
 
         val tile1 = pos.neighbor(directions(dir))
         val tile2 = tile1.neighbor(directions(dir))
+        val tile3 = tile2.neighbor(directions(dir))
+        val tile4 = tile3.neighbor(directions(dir))
 
-          if (tile2.x > 0 && tile2.x < game.width - 1 && tile2.y > 0 && tile2.y < game.width - 1) {
+          /*if (tile2.x > 0 && tile2.x < game.width - 1 && tile2.y > 0 && tile2.y < game.width - 1) {
             if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Wall) {
               game.update(tile1, new Path)
               game.update(tile2, new Path)
               carve(tile2)
             }
+          } else if (tile4.x > 0 && tile4.x < game.width - 1 && tile4.y > 0 && tile4.y < game.width - 1) {
+              if (game.elementAt(tile1) == Wall && game.elementAt(tile2).toString == "Path" && game.elementAt(tile3) == Wall && game.elementAt(tile4) == Wall) {
+                game.update(tile1, new Path)
+                game.update(tile2, new Bridge)
+                game.update(tile3, new Path)
+                game.update(tile4, new Path)
+                carve(tile4)
+            }
+          }*/
+        if (tile4.x > 0 && tile4.x < game.width - 1 && tile4.y > 0 && tile4.y < game.width - 1) {
+          if (game.elementAt(tile1) == Wall && game.elementAt(tile2).toString == "Path" && game.elementAt(tile3) == Wall && game.elementAt(tile4) == Wall) {
+            game.update(tile1, new Path)
+            game.update(tile2, new Bridge)
+            game.update(tile3, new Path)
+            game.update(tile4, new Path)
+            carve(tile4)
+          } else if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Wall) {
+            game.update(tile1, new Path)
+            game.update(tile2, new Path)
+            carve(tile2)
           }
+            else if (game.elementAt(tile2).toString == "Bridge") {
+            game.update(tile1, new Path)
+            game.update(tile3, new Path)
+            game.update(tile4, new Path)
+          }
+        }
         count += 1
         dir = (dir + 1) % 4
       }
