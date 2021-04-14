@@ -13,7 +13,7 @@ object GameApp extends JFXApp {
      scene = new Scene(1100,1100) {
 
          val grid = new GridPane()
-         val size = 52
+         val size = 51
          val pSize = 20
          val game = new Game(size)
          val mazeCreator = new MazeCreator(game)

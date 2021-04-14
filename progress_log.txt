@@ -27,3 +27,11 @@ Time used today ~3 hours.
 Algorithm for creating a 2d Labyrinth works.
 Added a goal so the game can be cleared.
 Time used ~3h
+
+---
+
+14.4.2021
+
+Fixed MazeCreator, now it works with every size grid.
+Modified the algorithm so that it creates a weave-maze.
+Created method goalPos, it returns a randomly selected position on the grid that has a neighbor that is a Path.
