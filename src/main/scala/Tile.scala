@@ -49,3 +49,15 @@ object Goal extends Tile {
   override def toString = "Goal"
 }
 
+object BreadCrumb extends Tile {
+
+  var conPlayer = false
+
+  def containsPlayer = conPlayer
+
+  def isUnpassable = false
+
+  override def toString = "BreadCrumb"
+
+}
+

@@ -3,9 +3,11 @@ import scala.util.Random
 
 class MazeCreator(game: Game) {
 
-  val directions = Vector(Up, Right, Down, Left)
+  private var goal: Position = new Position(-1, -1)
 
-  val random = new Random()
+  private val directions = Vector(Up, Right, Down, Left)
+
+  private val random = new Random()
 
   def mazeCreator() = {
 
@@ -50,26 +52,28 @@ class MazeCreator(game: Game) {
     game.update(goalPos(), Goal)
   }
 
-  def goalPos(): Position = {                // returns a Position that is on the edge of the Grid and it has atleast one neighbor that is a Path
-
-    var goal: Position = null
+  def goalPos(): Position = {                // returns a Position that is on the edge of the Grid and it has atleast one neighbor that is a Path and is connected to the player
 
     def randompos(): Unit = {
-
-      def onEdge(pos: Position) = !(pos.x > 1 && pos.x < game.width - 1 && pos.y > 1 && pos.y < game.width - 1)
-
-      def neighborIsPath(pos: Position) = pos.neighbors().filter(game.contains(_)).map( game.elementAt(_).toString ).contains( "Path" )
 
       val randomPos = new Position(random.nextInt(game.width), random.nextInt(game.width))
 
       val candidate = game.content()(randomPos.x)(randomPos.y)
 
-      if (candidate == Wall && onEdge(randomPos) && neighborIsPath(randomPos)) goal = randomPos
+      def onEdge(pos: Position) = !(pos.x > 1 && pos.x < game.width - 1 && pos.y > 1 && pos.y < game.width - 1)
+
+      def isSolvable = new MazeSolver(this.game).isSolvable(this.game.player.location, randomPos)
+
+      def neighborIsPath(pos: Position) = pos.neighbors().filter(game.contains(_)).map( game.elementAt(_).toString ).contains( "Path" )
+
+      if (candidate == Wall && onEdge(randomPos) && isSolvable) goal = randomPos
       else randompos()
     }
     randompos()
     goal
   }
+
+  def returnGoal = goal
 
 
 }

@@ -17,6 +17,7 @@ object GameApp extends JFXApp {
          val pSize = 20
          val game = new Game(size)
          val mazeCreator = new MazeCreator(game)
+         val mazeSolver = new MazeSolver(game)
          var xCounter = game.player.location.x
          var yCounter = game.player.location.y
 
@@ -85,6 +86,8 @@ object GameApp extends JFXApp {
                 grid.add(player, xCounter, yCounter)
                 content = grid
                 if (game.isComplete) println("jee!")
+
+            case KeyCode.O => mazeSolver.printShortest(game.player.location, mazeCreator.returnGoal)
 
             case KeyCode.Escape => Platform.exit()
 
