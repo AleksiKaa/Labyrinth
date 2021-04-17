@@ -61,3 +61,27 @@ object BreadCrumb extends Tile {
 
 }
 
+object BridgeCrumbX extends Tile {
+
+  var conPlayer = false
+
+  def containsPlayer = conPlayer
+
+  def isUnpassable = false
+
+  override def toString = "BridgeCrumb"
+
+}
+
+object BridgeCrumbY extends Tile {
+
+  var conPlayer = false
+
+  def containsPlayer = conPlayer
+
+  def isUnpassable = false
+
+  override def toString = "BridgeCrumb"
+
+}
+

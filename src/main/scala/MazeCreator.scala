@@ -66,7 +66,7 @@ class MazeCreator(game: Game) {
 
       def neighborIsPath(pos: Position) = pos.neighbors().filter(game.contains(_)).map( game.elementAt(_).toString ).contains( "Path" )
 
-      if (candidate == Wall && onEdge(randomPos) && isSolvable) goal = randomPos
+      if (candidate == Wall && onEdge(randomPos) && neighborIsPath(randomPos) && isSolvable) goal = randomPos
       else randompos()
     }
     randompos()
