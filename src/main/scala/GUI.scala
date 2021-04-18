@@ -89,6 +89,8 @@ object GameApp extends JFXApp {
 
             case KeyCode.O => mazeSolver.printShortest(game.player.location, mazeCreator.returnGoal)
 
+            case KeyCode.L => (new FileManager(game)).print()
+
             case KeyCode.Escape => Platform.exit()
 
             case _ =>
