@@ -29,19 +29,22 @@ object GameApp extends JFXApp {
         var buttonPressed = false
 
         button.setOnAction((t: ActionEvent) => {
-          if ((textField.text.value.toIntOption.isEmpty || textField.text.value.toIntOption.get > 150 || textField.text.value.toIntOption.get < 10) && !buttonPressed) {
+
+          def isValid(s: String) = s.isEmpty || s.toIntOption.get > 100 || s.toIntOption.get < 10
+
+          if (isValid(textField.text.value) && !buttonPressed) {
             buttonPressed = true
             val text1 = new Text() {
-              text = "Please enter a number from 10 to 150."
+              text = "Please enter a number from 10 to 100."
               fill = Red
             }
             text1.relocate(250, 40)
             children.add(text1)
-          } else if ((textField.text.value.toIntOption.isEmpty || textField.text.value.toIntOption.get > 150 || textField.text.value.toIntOption.get < 10) && buttonPressed) {}
+          } else if (isValid(textField.text.value) && buttonPressed) {}
           else {
 
-            val size = textField.text.value.toInt     // game size in squares
-            val pSize = 20                            // square size in pixels
+            val size = textField.text.value.toInt                 // game size in squares
+            val pSize = if (size * 20 < 1080) 20 else 10          // square size in pixels
 
             stage = new JFXApp.PrimaryStage {
               title = "Maze Game"
@@ -54,14 +57,15 @@ object GameApp extends JFXApp {
                 var xCounter = game.player.location.x
                 var yCounter = game.player.location.y
 
-                val up = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowup.png"), pSize, pSize, false, false))
-                val down = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png"), pSize, pSize, false, false))
-                val left = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png"), pSize, pSize, false, false))
-                val right = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
+                val up     = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowup.png")   , pSize, pSize, false, false))
+                val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png") , pSize, pSize, false, false))
+                val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png") , pSize, pSize, false, false))
+                val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
+
                 val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
-                val wall = new Image(new FileInputStream("src\\main\\images\\wall.png"), pSize, pSize, false, false)
-                val path = new Image(new FileInputStream("src\\main\\images\\path.png"), pSize, pSize, false, false)
-                val goal = new Image(new FileInputStream("src\\main\\images\\goal.png"), pSize, pSize, false, false)
+                val wall   = new Image(new FileInputStream("src\\main\\images\\wall.png")  , pSize, pSize, false, false)
+                val path   = new Image(new FileInputStream("src\\main\\images\\path.png")  , pSize, pSize, false, false)
+                val goal   = new Image(new FileInputStream("src\\main\\images\\goal.png")  , pSize, pSize, false, false)
                 var player = down
 
                 mazeCreator.mazeCreator()
