@@ -3,7 +3,7 @@ import java.io._
 class FileManager(game: Game) {
 
   val data = game.content().transpose.map( _.map( _.toString ) )
-  data(game.player.location.x)(game.player.location.y) = "Player"
+  data(game.player.location.y)(game.player.location.x) = "Player"
 
   val dataToNum: Array[String] = data.map( _.map {
     case "Wall"   => "[]"
@@ -11,7 +11,7 @@ class FileManager(game: Game) {
     case "Bridge" => "><"
     case "Goal"   => "--"
     case "Player" => "XD"
-  } )map( a => a.mkString(" ") )
+  } ).map( a => a.mkString(" ") )
 
   def printToFile(f: java.io.File)(op: java.io.PrintWriter => Unit) {
     val p = new java.io.PrintWriter(f)
@@ -25,4 +25,3 @@ class FileManager(game: Game) {
     }
 
 }
-//.map( a => a.mkString(" ") )
