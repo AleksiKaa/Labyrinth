@@ -1,5 +1,5 @@
 import scalafx.application.{JFXApp, Platform}
-import scalafx.scene.layout.{GridPane, Pane}
+import scalafx.scene.layout._
 import scalafx.Includes._
 import scalafx.scene.input._
 import scalafx.scene.Scene
@@ -7,11 +7,13 @@ import Direction._
 import javafx.event.ActionEvent
 import javafx.scene.control.TextField
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.geometry.Insets
 import scalafx.scene.control.Button
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.text.Text
 import java.io.FileInputStream
 import scalafx.scene.paint.Color._
+import scalafx.scene.paint.{LinearGradient, Stops}
 
 object GameApp extends JFXApp {
 
@@ -28,25 +30,32 @@ object GameApp extends JFXApp {
 
         var buttonPressed = false
 
+        onKeyPressed = (key: KeyEvent) => key.code match {
+          case KeyCode.Escape => Platform.exit()
+          case _ =>
+        }
+
         button.setOnAction((t: ActionEvent) => {
 
-          def isValid(s: String) = s.isEmpty || s.toIntOption.get > 100 || s.toIntOption.get < 10
+          def notValid(s: String) = s.toIntOption.isEmpty || s.toIntOption.get > 150 || s.toIntOption.get < 10
 
-          if (isValid(textField.text.value) && !buttonPressed) {
+          val textBox = textField.text.value
+
+          if (notValid(textBox) && !buttonPressed) {
             buttonPressed = true
             val text1 = new Text() {
-              text = "Please enter a number from 10 to 100."
+              text = "Please enter a number from 10 to 150."
               fill = Red
             }
             text1.relocate(250, 40)
             children.add(text1)
-          } else if (isValid(textField.text.value) && buttonPressed) {}
-          else {
+          } else if (notValid(textBox) && buttonPressed) {
+          } else {
 
-            val size = textField.text.value.toInt                 // game size in squares
-            val pSize = if (size * 20 < 1080) 20 else 10          // square size in pixels
+            val size = textField.text.value.toInt        // game size in squares
+            val pSize = if (size * 20 < 1080) 20 else 10 // square size in pixels
 
-            stage = new JFXApp.PrimaryStage {
+            stage = new PrimaryStage {
               title = "Maze Game"
               scene = new Scene(size * pSize, size * pSize) {
 
@@ -54,18 +63,17 @@ object GameApp extends JFXApp {
                 val game = new Game(size)
                 val mazeCreator = new MazeCreator(game)
                 val mazeSolver = new MazeSolver(game)
-                var xCounter = game.player.location.x
-                var yCounter = game.player.location.y
+                var xC = game.player.location.x
+                var yC: Int = game.player.location.y
 
-                val up     = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowup.png")   , pSize, pSize, false, false))
-                val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png") , pSize, pSize, false, false))
-                val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png") , pSize, pSize, false, false))
-                val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
-
+                val up = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowup.png"), pSize, pSize, false, false))
+                val down = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png"), pSize, pSize, false, false))
+                val left = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png"), pSize, pSize, false, false))
+                val right = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
                 val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
-                val wall   = new Image(new FileInputStream("src\\main\\images\\wall.png")  , pSize, pSize, false, false)
-                val path   = new Image(new FileInputStream("src\\main\\images\\path.png")  , pSize, pSize, false, false)
-                val goal   = new Image(new FileInputStream("src\\main\\images\\goal.png")  , pSize, pSize, false, false)
+                val wall = new Image(new FileInputStream("src\\main\\images\\wall.png"), pSize, pSize, false, false)
+                val path = new Image(new FileInputStream("src\\main\\images\\path.png"), pSize, pSize, false, false)
+                val goal = new Image(new FileInputStream("src\\main\\images\\goal.png"), pSize, pSize, false, false)
                 var player = down
 
                 mazeCreator.mazeCreator()
@@ -82,7 +90,7 @@ object GameApp extends JFXApp {
                   }
                 }
 
-                grid.add(player, xCounter, yCounter)
+                grid.add(player, xC, yC)
                 content = grid
 
                 onKeyPressed = (key: KeyEvent) => {
@@ -105,44 +113,71 @@ object GameApp extends JFXApp {
 
                       case KeyCode.W =>
                         grid.getChildren.remove(grid.getChildren.last)
-                        if (yCounter > 0 && game.canMove(Up)) yCounter -= 1
+                        if (yC > 0 && game.canMove(Up))
+                          yC -= 1
                         game.playerMove(Up)
                         player = up
-                        grid.add(player, xCounter, yCounter)
+                        grid.add(player, xC, yC)
                         content = grid
-                        if (game.isComplete) println("jee!") //to be modified
 
                       case KeyCode.A =>
                         grid.getChildren.remove(grid.getChildren.last)
-                        if (xCounter > 0 && game.canMove(Left)) xCounter -= 1
+                        if (xC > 0 && game.canMove(Left))
+                          xC -= 1
                         game.playerMove(Left)
                         player = left
-                        grid.add(player, xCounter, yCounter)
+                        grid.add(player, xC, yC)
                         content = grid
-                        if (game.isComplete) println("jee!")
 
                       case KeyCode.S =>
                         grid.getChildren.remove(grid.getChildren.last)
-                        if (yCounter < size - 1 && game.canMove(Down)) yCounter += 1
+                        if (yC < size - 1 && game.canMove(Down))
+                          yC += 1
                         game.playerMove(Down)
                         player = down
-                        grid.add(player, xCounter, yCounter)
+                        grid.add(player, xC, yC)
                         content = grid
-                        if (game.isComplete) println("jee!")
 
                       case KeyCode.D =>
                         grid.getChildren.remove(grid.getChildren.last)
-                        if (xCounter < size - 1 && game.canMove(Right)) xCounter += 1
+                        if (xC < size - 1 && game.canMove(Right))
+                          xC += 1
                         game.playerMove(Right)
                         player = right
-                        grid.add(player, xCounter, yCounter)
+                        grid.add(player, xC, yC)
                         content = grid
-                        if (game.isComplete) println("jee!")
 
                       case KeyCode.Escape => Platform.exit()
 
                       case _ =>
 
+                    }
+
+                    if (game.isComplete) {
+
+                      stage = new PrimaryStage {
+                        title = "Maze Game"
+                        scene = new Scene {
+                          fill = new LinearGradient(
+                            endX = 0,
+                            stops = Stops(Red, DarkRed))
+                          content = new VBox {
+                            padding = Insets(50, 80, 50, 80)
+                            children = Seq(
+                              new Text {
+                                text = "Congratulations!"
+                                style = "-fx-font: normal bold 50pt sans-serif"
+                              },
+                              new Text {
+                                text = "Press ESC to exit the game."
+                              })
+                          }
+                          onKeyPressed = (key: KeyEvent) => key.code match {
+                            case KeyCode.Escape => Platform.exit()
+                            case _ =>
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -150,7 +185,6 @@ object GameApp extends JFXApp {
             }
           }
         })
-
         text.relocate(20, 20)
         textField.relocate(250, 15)
         button.relocate(400, 15)
@@ -158,7 +192,6 @@ object GameApp extends JFXApp {
         children.add(text)
         children.add(textField)
         children.add(button)
-
       }
     }
   }
