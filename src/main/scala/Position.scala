@@ -10,4 +10,6 @@ class Position(val x: Int, val y: Int) {
 
   def neighbors() = Vector(this.neighbor(Up), this.neighbor(Right), this.neighbor(Down), this.neighbor(Left))
 
+  override def toString = s"($x, $y)"
+
 }

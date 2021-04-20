@@ -7,7 +7,7 @@ import Direction._
 import javafx.event.ActionEvent
 import javafx.scene.control.TextField
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.geometry.Insets
+import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.Button
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.text.Text
@@ -52,7 +52,7 @@ object GameApp extends JFXApp {
           } else if (notValid(textBox) && buttonPressed) {
           } else {
 
-            val size = textField.text.value.toInt        // game size in squares
+            val size = textField.text.value.toInt // game size in squares
             val pSize = if (size * 20 < 1080) 20 else 10 // square size in pixels
 
             stage = new PrimaryStage {
@@ -64,28 +64,33 @@ object GameApp extends JFXApp {
                 val mazeCreator = new MazeCreator(game)
                 val mazeSolver = new MazeSolver(game)
                 var xC = game.player.location.x
-                var yC: Int = game.player.location.y
+                var yC = game.player.location.y
 
-                val up = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowup.png"), pSize, pSize, false, false))
-                val down = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png"), pSize, pSize, false, false))
-                val left = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png"), pSize, pSize, false, false))
-                val right = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
+                val up     = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowup.png"), pSize, pSize, false, false))
+                val down   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowdown.png"), pSize, pSize, false, false))
+                val left   = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowleft.png"), pSize, pSize, false, false))
+                val right  = new ImageView(new Image(new FileInputStream("src\\main\\images\\arrowright.png"), pSize, pSize, false, false))
                 val bridge = new Image(new FileInputStream("src\\main\\images\\bridge.png"), pSize, pSize, false, false)
-                val wall = new Image(new FileInputStream("src\\main\\images\\wall.png"), pSize, pSize, false, false)
-                val path = new Image(new FileInputStream("src\\main\\images\\path.png"), pSize, pSize, false, false)
-                val goal = new Image(new FileInputStream("src\\main\\images\\goal.png"), pSize, pSize, false, false)
+                val wall   = new Image(new FileInputStream("src\\main\\images\\wall.png"), pSize, pSize, false, false)
+                val path   = new Image(new FileInputStream("src\\main\\images\\path.png"), pSize, pSize, false, false)
+                val goal   = new Image(new FileInputStream("src\\main\\images\\goal.png"), pSize, pSize, false, false)
+                val blue   = new Image(new FileInputStream("src\\main\\images\\bluecircle.png"), pSize, pSize, false, false)
+                val darkblue = new Image(new FileInputStream("src\\main\\images\\darkblue.png"), pSize, pSize, false, false)
+
+                val playerSprites = Seq(up, down, left, right)
                 var player = down
+
 
                 mazeCreator.mazeCreator()
 
                 for (i <- 0 until game.x) {
                   for (j <- 0 until game.y) {
-                    game.elementAt(new Position(i, j)).toString match {
-                      case "Wall" => grid.add(new ImageView(wall), i, j)
-                      case "Path" => grid.add(new ImageView(path), i, j)
+                    game.content()(i)(j).toString match {
+                      case "Wall"   => grid.add(new ImageView(wall), i, j)
+                      case "Path"   => grid.add(new ImageView(path), i, j)
                       case "Bridge" => grid.add(new ImageView(bridge), i, j)
-                      case "Goal" => grid.add(new ImageView(goal), i, j)
-                      case _ => //???
+                      case "Goal"   => grid.add(new ImageView(goal), i, j)
+                      case _        =>
                     }
                   }
                 }
@@ -103,6 +108,14 @@ object GameApp extends JFXApp {
 
                       case KeyCode.S => (new FileManager(game)).print()
 
+                      case KeyCode.P => {
+                        val solution = mazeSolver.solution(game.player.location, mazeCreator.returnGoal)
+                        solution.foreach(pos => {
+                          if (game.elementAt(pos).toString == "Bridge") grid.add(new ImageView(darkblue), pos.x, pos.y)
+                          else grid.add(new ImageView(blue), pos.x, pos.y)
+                        })
+                      }
+
                       case _ =>
 
                     }
@@ -112,36 +125,32 @@ object GameApp extends JFXApp {
                     key.code match {
 
                       case KeyCode.W =>
-                        grid.getChildren.remove(grid.getChildren.last)
-                        if (yC > 0 && game.canMove(Up))
-                          yC -= 1
+                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        if (yC > 0 && game.canMove(Up)) yC -= 1
                         game.playerMove(Up)
                         player = up
                         grid.add(player, xC, yC)
                         content = grid
 
                       case KeyCode.A =>
-                        grid.getChildren.remove(grid.getChildren.last)
-                        if (xC > 0 && game.canMove(Left))
-                          xC -= 1
+                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        if (xC > 0 && game.canMove(Left)) xC -= 1
                         game.playerMove(Left)
                         player = left
                         grid.add(player, xC, yC)
                         content = grid
 
                       case KeyCode.S =>
-                        grid.getChildren.remove(grid.getChildren.last)
-                        if (yC < size - 1 && game.canMove(Down))
-                          yC += 1
+                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        if (yC < size - 1 && game.canMove(Down)) yC += 1
                         game.playerMove(Down)
                         player = down
                         grid.add(player, xC, yC)
                         content = grid
 
                       case KeyCode.D =>
-                        grid.getChildren.remove(grid.getChildren.last)
-                        if (xC < size - 1 && game.canMove(Right))
-                          xC += 1
+                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        if (xC < size - 1 && game.canMove(Right)) xC += 1
                         game.playerMove(Right)
                         player = right
                         grid.add(player, xC, yC)
