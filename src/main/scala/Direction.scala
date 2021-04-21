@@ -1,4 +1,4 @@
-sealed abstract class Direction(val xStep: Int, val yStep: Int) { // clean this properly
+sealed abstract class Direction(val xStep: Int, val yStep: Int) {
 
   def ! :Direction
 
@@ -10,11 +10,11 @@ sealed abstract class Direction(val xStep: Int, val yStep: Int) { // clean this 
       def ! = Down
     }
 
-    case object Right extends Direction(1, 0) {
+    case object Right extends Direction(1, 0 ) {
       def ! = Left
     }
 
-    case object Down  extends Direction(0, 1) {
+    case object Down  extends Direction(0,  1) {
       def ! = Up
     }
 
@@ -22,15 +22,7 @@ sealed abstract class Direction(val xStep: Int, val yStep: Int) { // clean this 
       def ! = Right
     }
 
-    case object NoDir extends Direction(0, 0) {
+    case object NoDir extends Direction(0,  0) {
       def ! = this
     }
-
-    val clockwise = Vector[Direction](Up, Right, Down, Left)
-    val count = clockwise.size
-
-    private val next = clockwise.zip(clockwise.tail ++ clockwise.init).toMap
-    private val previous = this.next.map( _.swap )
-
-
   }

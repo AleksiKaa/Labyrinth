@@ -2,11 +2,7 @@ import Direction._
 
 class Position(val x: Int, val y: Int) {
 
-  def relative(direction: Direction, distance: Int) =
-    new Position(this.x + direction.xStep * distance,
-             this.y + direction.yStep * distance)
-
-  def neighbor(direction: Direction): Position = this.relative(direction, 1)
+  def neighbor(dir: Direction): Position = new Position(this.x + dir.xStep, this.y + dir.yStep)
 
   def neighbors() = Vector(this.neighbor(Up), this.neighbor(Right), this.neighbor(Down), this.neighbor(Left))
 

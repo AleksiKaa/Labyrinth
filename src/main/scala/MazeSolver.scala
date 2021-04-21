@@ -1,5 +1,4 @@
 import Direction._
-import scala.collection.mutable.Buffer
 
 class MazeSolver(game: Game) {
 

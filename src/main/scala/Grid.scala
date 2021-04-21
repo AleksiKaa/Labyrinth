@@ -6,11 +6,7 @@ abstract class Grid[Tile: ClassTag](val x :Int, val y :Int) {
 
   def initialElements : Seq[Tile]
 
-  private val contents: Array[Array[Tile]] = {
-    val elems = try { this.initialElements } catch { case npe: NullPointerException => throw new RuntimeException("NPE", npe) }
-    require(elems.sizeIs == this.size, s"elems.size != this.size")
-    elems.toArray.grouped(this.x).toArray.transpose
-  }
+  private val contents: Array[Array[Tile]] = initialElements.toArray.grouped(this.x).toArray.transpose
 
   def content() = contents
 
