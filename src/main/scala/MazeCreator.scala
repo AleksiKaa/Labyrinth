@@ -9,7 +9,7 @@ class MazeCreator(game: Game) {
 
   private val directions = Vector(Up, Right, Down, Left)
 
-  private val random = new Random()
+  private val random = new Random(System.nanoTime())
 
   def doWithProb(prob: Double)(thenAction: => Unit): Unit = {
     require(0.0 <= prob && prob <= 100.0)
