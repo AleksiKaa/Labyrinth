@@ -43,7 +43,7 @@ class MazeSolver(game: Game) {
     }
   }
 
-  def isSolvable(playerPos: Position, goalPos: Position) = shortestPath(playerPos.x, playerPos.y, goalPos.x, goalPos.y, this.game.player.lastDirection) != 1000000001
+  def isSolvable(playerPos: Position, goalPos: Position) = shortestPath(playerPos.x, playerPos.y, goalPos.x, goalPos.y, this.game.player.lastDirection) < 1000000000
 
   def printShortest(playerPos: Position, goalPos: Position) = println("the shortest path to goal is " + shortestPath(playerPos.x, playerPos.y, goalPos.x, goalPos.y, this.game.player.lastDirection) + " steps")
 

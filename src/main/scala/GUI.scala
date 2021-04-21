@@ -19,17 +19,22 @@ object GameApp extends JFXApp {
 
   stage = new PrimaryStage {
     title = "Maze Game"
-    scene = new Scene(470, 80) {
+    scene = new Scene(300, 230) {
 
       //start screen
 
-      content = new Pane() {
+      content = new VBox(20) {
+        fill = new LinearGradient(endX = 0, stops = Stops(White, Grey))
+        padding = Insets(50, 50, 50, 50)
+
         val text = new Text {
           text = "Enter game size"
           style = "-fx-font: normal bold 20pt sans-serif"
         }
         val textField = new TextField()
+        textField.setMaxWidth(200)
         val button = new Button("Enter")
+        button.setMinWidth(200)
 
         var buttonPressed = false
 
@@ -40,15 +45,15 @@ object GameApp extends JFXApp {
 
         button.setOnAction((t: ActionEvent) => {
 
-          def notValid(s: String) = s.toIntOption.isEmpty || s.toIntOption.get > 150 || s.toIntOption.get < 10
+          def notValid(s: String) = s.toIntOption.isEmpty || s.toIntOption.get > 100 || s.toIntOption.get < 10
 
           val textBox = textField.text.value
 
           if (notValid(textBox) && !buttonPressed) {
             buttonPressed = true
             val text1 = new Text() {
-              text = "Please enter a number from 10 to 150."
-              fill = Red
+              text = "Please enter a number from 10 to 100."
+              fill = DarkRed
             }
             text1.relocate(250, 40)
             children.add(text1)
@@ -209,9 +214,6 @@ object GameApp extends JFXApp {
             }
           }
         })
-        text.relocate(20, 20)
-        textField.relocate(250, 15)
-        button.relocate(400, 15)
 
         children.add(text)
         children.add(textField)
