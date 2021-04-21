@@ -48,7 +48,7 @@ class MazeSolver(game: Game) {
 
   def printShortest(playerPos: Position, goalPos: Position) = println("the shortest path to goal is " + shortestPath(playerPos.x, playerPos.y, goalPos.x, goalPos.y, this.game.player.lastDirection) + " steps")
 
-  def returnShorter[T](a: (Int, Seq[T]), b: (Int, Seq[T])) : (Int, Seq[T]) = if (a._1 < b._1) a else b
+  def returnShorter[T](a: (Int, Seq[T]), b: (Int, Seq[T])) : (Int, Seq[T]) = if (a._1 < b._1) (a._1 + 1, a._2) else (b._1 + 1, b._2)
 
   def solvePath(x: Int, y: Int, goalX: Int, goalY: Int, lastDir: Direction, seq: Seq[Position]): (Int, Seq[Position]) = {
 
