@@ -3,29 +3,32 @@ import scalafx.scene.layout._
 import scalafx.Includes._
 import scalafx.scene.input._
 import scalafx.scene.Scene
-import Direction._
-import javafx.event.ActionEvent
-import javafx.scene.control.TextField
+import scalafx.event.ActionEvent
+import scalafx.scene.control.TextField
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.geometry.{Insets, Pos}
+import scalafx.geometry.Insets
 import scalafx.scene.control.Button
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.text.Text
-import java.io.FileInputStream
 import scalafx.scene.paint.Color._
 import scalafx.scene.paint.{LinearGradient, Stops}
+import java.io.FileInputStream
+import Direction._
 
 object GameApp extends JFXApp {
 
   stage = new PrimaryStage {
     title = "Maze Game"
     scene = new Scene(470, 80) {
+
+      //start screen
+
       content = new Pane() {
         val text = new Text {
           text = "Enter game size"
           style = "-fx-font: normal bold 20pt sans-serif"
         }
-        val textField = new TextField("")
+        val textField = new TextField()
         val button = new Button("Enter")
 
         var buttonPressed = false
@@ -52,6 +55,8 @@ object GameApp extends JFXApp {
           } else if (notValid(textBox) && buttonPressed) {
           } else {
 
+            //The game itself
+
             val size = textField.text.value.toInt // game size in squares
             val pSize = if (size * 20 < 1080) 20 else 10 // square size in pixels
 
@@ -77,9 +82,9 @@ object GameApp extends JFXApp {
                 val blue   = new Image(new FileInputStream("src\\main\\images\\bluecircle.png"), pSize, pSize, false, false)
                 val darkblue = new Image(new FileInputStream("src\\main\\images\\darkblue.png"), pSize, pSize, false, false)
 
-                val playerSprites = Seq(up, down, left, right)
                 var player = down
-
+                var solutionLength = 0
+                var solutionShown = false
 
                 mazeCreator.mazeCreator()
 
@@ -109,11 +114,19 @@ object GameApp extends JFXApp {
                       case KeyCode.S => (new FileManager(game)).print()
 
                       case KeyCode.P => {
+                        if (solutionShown) { //remove old solution from view
+                          val path = grid.children.init.takeRight(solutionLength)
+                          path.foreach( grid.children.remove(_) )
+                        }
+                        solutionShown = true
                         val solution = mazeSolver.solution(game.player.location, mazeCreator.returnGoal)
+                        solutionLength = solution.length
                         solution.foreach(pos => {
                           if (game.elementAt(pos).toString == "Bridge") grid.add(new ImageView(darkblue), pos.x, pos.y)
                           else grid.add(new ImageView(blue), pos.x, pos.y)
                         })
+                        grid.children.remove(player)
+                        grid.add(player, xC, yC)      //ensures that player is the last Node in children
                       }
 
                       case _ =>
@@ -125,7 +138,7 @@ object GameApp extends JFXApp {
                     key.code match {
 
                       case KeyCode.W =>
-                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        grid.getChildren.remove(grid.children.last)
                         if (yC > 0 && game.canMove(Up)) yC -= 1
                         game.playerMove(Up)
                         player = up
@@ -133,7 +146,7 @@ object GameApp extends JFXApp {
                         content = grid
 
                       case KeyCode.A =>
-                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        grid.getChildren.remove(grid.children.last)
                         if (xC > 0 && game.canMove(Left)) xC -= 1
                         game.playerMove(Left)
                         player = left
@@ -141,7 +154,7 @@ object GameApp extends JFXApp {
                         content = grid
 
                       case KeyCode.S =>
-                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        grid.getChildren.remove(grid.children.last)
                         if (yC < size - 1 && game.canMove(Down)) yC += 1
                         game.playerMove(Down)
                         player = down
@@ -149,7 +162,7 @@ object GameApp extends JFXApp {
                         content = grid
 
                       case KeyCode.D =>
-                        grid.getChildren.remove(playerSprites.filter(grid.children.contains(_)).head)
+                        grid.getChildren.remove(grid.children.last)
                         if (xC < size - 1 && game.canMove(Right)) xC += 1
                         game.playerMove(Right)
                         player = right
@@ -161,6 +174,8 @@ object GameApp extends JFXApp {
                       case _ =>
 
                     }
+
+                    //Congratulations screen
 
                     if (game.isComplete) {
 

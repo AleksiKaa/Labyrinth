@@ -80,11 +80,14 @@ class MazeSolver(game: Game) {
       } else {
 
         this.game.update(playerPos, BreadCrumb)
+
         val shortest = returnShorter(
+                       returnShorter(
                        returnShorter(solvePath(x + 1, y, goalX, goalY, Right, seq :+ new Position(x + 1, y)),
                                      solvePath(x - 1, y, goalX, goalY, Left , seq :+ new Position(x - 1, y))),
-                       returnShorter(solvePath(x, y + 1, goalX, goalY, Down , seq :+ new Position(x, y + 1)),
-                                     solvePath(x, y - 1, goalX, goalY, Up   , seq :+ new Position(x, y - 1))))
+                                     solvePath(x, y + 1, goalX, goalY, Down , seq :+ new Position(x, y + 1))),
+                                     solvePath(x, y - 1, goalX, goalY, Up   , seq :+ new Position(x, y - 1)))
+
         this.game.update(playerPos, breadCrumb)
         shortest
       }

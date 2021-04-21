@@ -1,4 +1,4 @@
-sealed abstract class Direction(val xStep: Int, val yStep: Int) {
+sealed abstract class Direction(val xStep: Int, val yStep: Int) { // clean this properly
 
   def ! :Direction
 
