@@ -1,6 +1,6 @@
 18.03.21
 
-First I created rough versions of classes Grid, Position, Direction and Game.
+First I created rough versions of classes Maze.Grid, Maze.Position, Maze.Direction and Maze.Game.
 Started fiddling with swing, decided to use scalafx instead because course material had good tutorials on the subject.
 Then I focused on getiing something, anything showing up on the GUI.
 Had a problem with using match for Tiles, solved the problem by overriding each subclasses toString method and using match on toString ie. tile.toString match
@@ -12,11 +12,11 @@ Time used ~10h maybe a bit more.
 
 22.03.21
 
-Game logic implemented into the gui. First I made it so that the gui tracks and updates the Game class's players location, and before moving the player, the game checks if it's possible.
-First task was to make a method to Game that checks if the player is allowed to move in a direction (canMove).
+Maze.Game logic implemented into the gui. First I made it so that the gui tracks and updates the Maze.Game class's players location, and before moving the player, the game checks if it's possible.
+First task was to make a method to Maze.Game that checks if the player is allowed to move in a direction (canMove).
 Then little by little, all game logic was added to the gui. All game elements are now working as intended.
 After that, I started to look for sprites for the game. I found cool player sprites that were free to use in a sprite hosting website.
-Also I made a sprite for Bridge and added that to the project.
+Also I made a sprite for Maze.Bridge and added that to the project.
 Then I made the gui so that it loads the sprites, and adds them to the scene.
 Time used today ~3 hours.
 
@@ -32,6 +32,6 @@ Time used ~3h
 
 14.4.2021
 
-Fixed MazeCreator, now it works with every size grid.
+Fixed Util.MazeCreator, now it works with every size grid.
 Modified the algorithm so that it creates a weave-maze.
-Created method goalPos, it returns a randomly selected position on the grid that has a neighbor that is a Path.
+Created method goalPos, it returns a randomly selected position on the grid that has a neighbor that is a Maze.Path.

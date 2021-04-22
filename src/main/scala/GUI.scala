@@ -12,15 +12,18 @@ import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.text.Text
 import scalafx.scene.paint.Color._
 import scalafx.scene.paint.{LinearGradient, Stops}
+import scalafx.geometry.Pos.Center
 
 import java.io.FileInputStream
-import Direction._
-import scalafx.geometry.Pos.Center
+
+import Util._
+import Maze.Direction._
+import Maze._
 
 object GameApp extends JFXApp {
 
   stage = new PrimaryStage {
-    title = "Maze Game"
+    title = "Maze Maze.Game"
     scene = new Scene(300, 230) {
 
       //start screen
@@ -60,16 +63,16 @@ object GameApp extends JFXApp {
             }
             text1.relocate(250, 40)
             children.add(text1)
-          } else if (notValid(textBox) && buttonPressed) {
+          } else if (notValid(textBox) && buttonPressed) { // do nothing
           } else {
 
             //The game itself
 
-            val size = textField.text.value.toInt // game size in squares
-            val pSize = if (size * 20 < 1080) 20 else 10 // square size in pixels
+            val size = textField.text.value.toInt         // game size in squares
+            val pSize = if (size * 20 < 1080) 20 else 10  // square size in pixels
 
             stage = new PrimaryStage {
-              title = "Maze Game"
+              title = "Maze Maze.Game"
               scene = new Scene(size * pSize, size * pSize) {
 
                 val grid = new GridPane()
@@ -99,11 +102,11 @@ object GameApp extends JFXApp {
                 for (i <- 0 until game.x) {
                   for (j <- 0 until game.y) {
                     game.content()(i)(j).toString match {
-                      case "Wall"   => grid.add(new ImageView(wall), i, j)
-                      case "Path"   => grid.add(new ImageView(path), i, j)
-                      case "Bridge" => grid.add(new ImageView(bridge), i, j)
-                      case "Goal"   => grid.add(new ImageView(goal), i, j)
-                      case _        =>
+                      case "Maze.Wall"   => grid.add(new ImageView(wall), i, j)
+                      case "Maze.Path"   => grid.add(new ImageView(path), i, j)
+                      case "Maze.Bridge" => grid.add(new ImageView(bridge), i, j)
+                      case "Maze.Goal"   => grid.add(new ImageView(goal), i, j)
+                      case _             =>
                     }
                   }
                 }
@@ -122,7 +125,7 @@ object GameApp extends JFXApp {
                       case KeyCode.S => (new FileManager(game)).print()
 
                       case KeyCode.P => {
-                        if (solutionShown) { //remove old solution from view
+                        if (solutionShown) {                    //remove old solution from view
                           val path = grid.children.init.takeRight(solutionLength)
                           path.foreach( grid.children.remove(_) )
                         }
@@ -130,11 +133,11 @@ object GameApp extends JFXApp {
                         val solution = mazeSolver.solution(game.player.location, mazeCreator.returnGoal)
                         solutionLength = solution.length
                         solution.foreach(pos => {
-                          if (game.elementAt(pos).toString == "Bridge") grid.add(new ImageView(darkblue), pos.x, pos.y)
+                          if (game.elementAt(pos).toString == "Maze.Bridge") grid.add(new ImageView(darkblue), pos.x, pos.y)
                           else grid.add(new ImageView(blue), pos.x, pos.y)
                         })
-                        grid.children.remove(player)
-                        grid.add(player, xC, yC)      //ensures that player is the last Node in children
+                        grid.children.remove(player)            //
+                        grid.add(player, xC, yC)                //ensures that player is the last Node in children
                       }
 
                       case _ =>
@@ -188,7 +191,7 @@ object GameApp extends JFXApp {
                     if (game.isComplete) {
 
                       stage = new PrimaryStage {
-                        title = "Maze Game"
+                        title = "Maze Maze.Game"
                         scene = new Scene {
                         fill = new LinearGradient(endX = 0, stops = Stops(White, Grey))
                           content = new VBox(10) {
