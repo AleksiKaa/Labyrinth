@@ -47,7 +47,8 @@ object Goal extends Tile {
   override def toString = "Goal"
 }
 
-case class BreadCrumb() extends Tile {
+
+object BreadCrumb extends Tile {
 
   def updatePlayer(): Unit = ()
 
@@ -57,13 +58,21 @@ case class BreadCrumb() extends Tile {
 
 }
 
-object BridgeCrumbX extends BreadCrumb{
+object BridgeCrumbX extends Tile {
+
+  def updatePlayer(): Unit = ()
+
+  def containsPlayer = false
 
   override def toString = "BridgeCrumb"
 
 }
 
-object BridgeCrumbY extends BreadCrumb {
+object BridgeCrumbY extends Tile {
+
+  def updatePlayer(): Unit = ()
+
+  def containsPlayer = false
 
   override def toString = "BridgeCrumb"
 

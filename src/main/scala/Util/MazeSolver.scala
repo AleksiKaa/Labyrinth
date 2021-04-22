@@ -11,7 +11,7 @@ class MazeSolver(game: Game) {
     val playerPos = new Position(x, y)
 
     if (x == goalX && y == goalY) 0
-    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos).toString == "BreadCrumb"
+    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos) == BreadCrumb
                    || (game.elementAt(playerPos) == BridgeCrumbX && (lastDir == Right || lastDir == Left)) || (game.elementAt(playerPos) == BridgeCrumbY && (lastDir == Up || lastDir == Down))) 1000000000
     else {
 
@@ -35,7 +35,7 @@ class MazeSolver(game: Game) {
 
       } else {
 
-          this.game.update(playerPos, BreadCrumb())
+          this.game.update(playerPos, BreadCrumb)
           val shortest = (shortestPath(x + 1, y, goalX, goalY, Right) min
                           shortestPath(x - 1, y, goalX, goalY, Left) min
                           shortestPath(x, y + 1, goalX, goalY, Down) min
@@ -58,7 +58,7 @@ class MazeSolver(game: Game) {
     val playerPos = new Position(x, y)
 
     if (x == goalX && y == goalY) (0, seq)
-    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos).toString == "BreadCrumb"
+    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos) == BreadCrumb
                    || (game.elementAt(playerPos) == BridgeCrumbX && (lastDir == Right || lastDir == Left)) || (game.elementAt(playerPos) == BridgeCrumbY && (lastDir == Up || lastDir == Down))) (1000000000, Seq())
     else {
 
@@ -82,7 +82,7 @@ class MazeSolver(game: Game) {
 
       } else {
 
-        this.game.update(playerPos, BreadCrumb())
+        this.game.update(playerPos, BreadCrumb)
 
         val shortest = returnShorter(
                        returnShorter(
