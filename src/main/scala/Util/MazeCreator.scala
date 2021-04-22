@@ -1,8 +1,9 @@
 package Util
 
-import Maze.Direction._
 import java.util.NoSuchElementException
 import scala.util.Random
+
+import Maze.Direction._
 import Maze._
 
 class MazeCreator(game: Game) {
@@ -28,14 +29,14 @@ class MazeCreator(game: Game) {
         val tile4 = tile3.neighbor(directions(dir))
 
         if (tile4.x > 0 && tile4.x < game.width - 1 && tile4.y > 0 && tile4.y < game.width - 1) {
-          if (game.elementAt(tile1) == Wall && game.elementAt(tile2).toString == "Maze.Path" && game.elementAt(tile3) == Wall && game.elementAt(tile4) == Wall) {
+          if (game.elementAt(tile1) == Wall && game.elementAt(tile2).toString == "Path" && game.elementAt(tile3) == Wall && game.elementAt(tile4) == Wall) {
             game.update(tile1, new Path)
             game.update(tile2, new Bridge)
             game.update(tile3, new Path)
             game.update(tile4, new Path)
             carve(tile4)
           }
-          else if (game.elementAt(tile2).toString == "Maze.Bridge") {
+          else if (game.elementAt(tile2).toString == "Bridge") {
             game.update(tile1, new Path)
             game.update(tile3, new Path)
             game.update(tile4, new Path)
@@ -77,7 +78,7 @@ class MazeCreator(game: Game) {
 
       def isSolvable = new MazeSolver(this.game).isSolvable(this.game.player.location, randomPos)
 
-      def neighborIsPath(pos: Position) = pos.neighbors().filter(game.contains(_)).map(game.elementAt(_).toString).contains("Maze.Path")
+      def neighborIsPath(pos: Position) = pos.neighbors().filter(game.contains(_)).map(game.elementAt(_).toString).contains("Path")
 
       if (candidate == Wall && onEdge(randomPos) && neighborIsPath(randomPos) && isSolvable) goal = randomPos
       else randompos()

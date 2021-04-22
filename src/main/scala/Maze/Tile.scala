@@ -10,11 +10,11 @@ trait Tile {
 
 object Wall extends Tile {
 
-  def updatePlayer(): Unit = Unit
+  def updatePlayer(): Unit = ()
 
   def containsPlayer = false
 
-  override def toString = "Maze.Wall"
+  override def toString = "Wall"
 
 }
 
@@ -26,13 +26,13 @@ class Path extends Tile {
 
   def containsPlayer = conPlayer
 
-  override def toString = "Maze.Path"
+  override def toString = "Path"
 
 }
 
 class Bridge extends Path {
 
-  override def toString = "Maze.Bridge"
+  override def toString = "Bridge"
 
 }
 
@@ -44,16 +44,16 @@ object Goal extends Tile {
 
   def containsPlayer = conPlayer
 
-  override def toString = "Maze.Goal"
+  override def toString = "Goal"
 }
 
 case class BreadCrumb() extends Tile {
 
-  def updatePlayer(): Unit = Unit
+  def updatePlayer(): Unit = ()
 
   def containsPlayer = false
 
-  override def toString = "Maze.BreadCrumb"
+  override def toString = "BreadCrumb"
 
 }
 

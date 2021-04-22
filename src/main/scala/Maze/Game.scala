@@ -1,10 +1,12 @@
-import Direction._
+package Maze
+
+import Maze.Direction._
 
 class Game(val width: Int) extends Grid[Tile](width, width){
 
   val pLoc = width - width / 2 - 1
   val player = new Player(new Position(pLoc, pLoc))
-  elementAt(player.location).conPlayer = true
+  elementAt(player.location).updatePlayer()
 
   def initialElements: Seq[Tile] = Seq.fill(this.size){Wall}
 
@@ -16,9 +18,9 @@ class Game(val width: Int) extends Grid[Tile](width, width){
 
   def playerMove(dir: Direction) = {
     if (canMove(dir)) {
-    this.elementAt(player.location).conPlayer = false
+    this.elementAt(player.location).updatePlayer()
     this.player.move(dir)
-    this.elementAt(player.location).conPlayer = true
+    this.elementAt(player.location).updatePlayer()
     }
   }
 

@@ -11,13 +11,13 @@ class MazeSolver(game: Game) {
     val playerPos = new Position(x, y)
 
     if (x == goalX && y == goalY) 0
-    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos).toString == "Maze.BreadCrumb"
+    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos).toString == "BreadCrumb"
                    || (game.elementAt(playerPos) == BridgeCrumbX && (lastDir == Right || lastDir == Left)) || (game.elementAt(playerPos) == BridgeCrumbY && (lastDir == Up || lastDir == Down))) 1000000000
     else {
 
       val currentTile = this.game.elementAt(playerPos)
 
-      if (currentTile.toString == "Maze.Bridge" && (lastDir == Right || lastDir == Left)) {
+      if (currentTile.toString == "Bridge" && (lastDir == Right || lastDir == Left)) {
 
         this.game.update(playerPos, BridgeCrumbX)
         val shortest = (shortestPath(x + 1, y, goalX, goalY, Right) min
@@ -25,7 +25,7 @@ class MazeSolver(game: Game) {
         this.game.update(playerPos, currentTile)
         shortest
 
-      } else if (currentTile.toString == "Maze.Bridge" && (lastDir == Up || lastDir == Down)) {
+      } else if (currentTile.toString == "Bridge" && (lastDir == Up || lastDir == Down)) {
 
         this.game.update(playerPos, BridgeCrumbY)
         val shortest = (shortestPath(x, y + 1, goalX, goalY, Down) min
@@ -58,13 +58,13 @@ class MazeSolver(game: Game) {
     val playerPos = new Position(x, y)
 
     if (x == goalX && y == goalY) (0, seq)
-    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos).toString == "Maze.BreadCrumb"
+    else if (x < 0 || x >= game.width || y < 0 || y >= game.width || game.elementAt(playerPos) == Wall || game.elementAt(playerPos).toString == "BreadCrumb"
                    || (game.elementAt(playerPos) == BridgeCrumbX && (lastDir == Right || lastDir == Left)) || (game.elementAt(playerPos) == BridgeCrumbY && (lastDir == Up || lastDir == Down))) (1000000000, Seq())
     else {
 
       val currentTile = this.game.elementAt(playerPos)
 
-      if (currentTile.toString == "Maze.Bridge" && (lastDir == Right || lastDir == Left)) {
+      if (currentTile.toString == "Bridge" && (lastDir == Right || lastDir == Left)) {
 
         this.game.update(playerPos, BridgeCrumbX)
         val shortest = returnShorter(solvePath(x + 1, y, goalX, goalY, Right, seq :+ new Position(x + 1, y)),
@@ -72,7 +72,7 @@ class MazeSolver(game: Game) {
         this.game.update(playerPos, currentTile)
         shortest
 
-      } else if (currentTile.toString == "Maze.Bridge" && (lastDir == Up || lastDir == Down)) {
+      } else if (currentTile.toString == "Bridge" && (lastDir == Up || lastDir == Down)) {
 
         this.game.update(playerPos, BridgeCrumbY)
         val shortest = returnShorter(solvePath(x, y + 1, goalX, goalY, Down, seq :+ new Position(x, y + 1)),

@@ -9,12 +9,12 @@ class FileManager(game: Game) {
   data(game.player.location.y)(game.player.location.x) = "oO"
 
   val dataInString: Array[String] = data.map( _.map {
-    case "Maze.Wall"   => "[]"
-    case "Maze.Path"   => "  "
-    case "Maze.Bridge" => "><"
-    case "Maze.Goal"   => "--"
-    case "oO"          => "oO"
-    case _             =>
+    case "Wall"   => "[]"
+    case "Path"   => "  "
+    case "Bridge" => "><"
+    case "Goal"   => "--"
+    case "oO"     => "oO"
+    case _        =>
   } ).map( a => a.mkString(" ") )
 
   def printToFile(f: java.io.File)(op: java.io.PrintWriter => Unit) {

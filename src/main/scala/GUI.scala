@@ -23,7 +23,7 @@ import Maze._
 object GameApp extends JFXApp {
 
   stage = new PrimaryStage {
-    title = "Maze Maze.Game"
+    title = "Maze Game"
     scene = new Scene(300, 230) {
 
       //start screen
@@ -72,7 +72,7 @@ object GameApp extends JFXApp {
             val pSize = if (size * 20 < 1080) 20 else 10  // square size in pixels
 
             stage = new PrimaryStage {
-              title = "Maze Maze.Game"
+              title = "Maze Game"
               scene = new Scene(size * pSize, size * pSize) {
 
                 val grid = new GridPane()
@@ -102,10 +102,10 @@ object GameApp extends JFXApp {
                 for (i <- 0 until game.x) {
                   for (j <- 0 until game.y) {
                     game.content()(i)(j).toString match {
-                      case "Maze.Wall"   => grid.add(new ImageView(wall), i, j)
-                      case "Maze.Path"   => grid.add(new ImageView(path), i, j)
-                      case "Maze.Bridge" => grid.add(new ImageView(bridge), i, j)
-                      case "Maze.Goal"   => grid.add(new ImageView(goal), i, j)
+                      case "Wall"   => grid.add(new ImageView(wall), i, j)
+                      case "Path"   => grid.add(new ImageView(path), i, j)
+                      case "Bridge" => grid.add(new ImageView(bridge), i, j)
+                      case "Goal"   => grid.add(new ImageView(goal), i, j)
                       case _             =>
                     }
                   }
@@ -133,7 +133,7 @@ object GameApp extends JFXApp {
                         val solution = mazeSolver.solution(game.player.location, mazeCreator.returnGoal)
                         solutionLength = solution.length
                         solution.foreach(pos => {
-                          if (game.elementAt(pos).toString == "Maze.Bridge") grid.add(new ImageView(darkblue), pos.x, pos.y)
+                          if (game.elementAt(pos).toString == "Bridge") grid.add(new ImageView(darkblue), pos.x, pos.y)
                           else grid.add(new ImageView(blue), pos.x, pos.y)
                         })
                         grid.children.remove(player)            //
@@ -191,7 +191,7 @@ object GameApp extends JFXApp {
                     if (game.isComplete) {
 
                       stage = new PrimaryStage {
-                        title = "Maze Maze.Game"
+                        title = "Maze Game"
                         scene = new Scene {
                         fill = new LinearGradient(endX = 0, stops = Stops(White, Grey))
                           content = new VBox(10) {
