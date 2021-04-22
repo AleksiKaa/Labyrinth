@@ -12,8 +12,10 @@ import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.text.Text
 import scalafx.scene.paint.Color._
 import scalafx.scene.paint.{LinearGradient, Stops}
+
 import java.io.FileInputStream
 import Direction._
+import scalafx.geometry.Pos.Center
 
 object GameApp extends JFXApp {
 
@@ -26,6 +28,7 @@ object GameApp extends JFXApp {
       content = new VBox(20) {
         fill = new LinearGradient(endX = 0, stops = Stops(White, Grey))
         padding = Insets(50, 50, 50, 50)
+        alignment = Center
 
         val text = new Text {
           text = "Enter game size"
@@ -187,15 +190,18 @@ object GameApp extends JFXApp {
                       stage = new PrimaryStage {
                         title = "Maze Game"
                         scene = new Scene {
-                          fill = new LinearGradient(
-                            endX = 0,
-                            stops = Stops(Red, DarkRed))
-                          content = new VBox {
-                            padding = Insets(50, 80, 50, 80)
+                        fill = new LinearGradient(endX = 0, stops = Stops(White, Grey))
+                          content = new VBox(10) {
+                            padding = Insets(50, 50, 50, 50)
+                            alignment = Center
                             children = Seq(
                               new Text {
                                 text = "Congratulations!"
-                                style = "-fx-font: normal bold 50pt sans-serif"
+                                style = "-fx-font: normal bold 20pt sans-serif"
+                              },
+                              new Text {
+                                text = "You beat the game!"
+                                style = "-fx-font: normal bold 10pt sans-serif"
                               },
                               new Text {
                                 text = "Press ESC to exit the game."
