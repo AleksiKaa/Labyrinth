@@ -99,8 +99,8 @@ object GameApp extends JFXApp {
 
                 mazeCreator.mazeCreator()
 
-                for (i <- 0 until game.x) {
-                  for (j <- 0 until game.y) {
+                for (i <- 0 until game.width) {
+                  for (j <- 0 until game.width) {
                     game.content()(i)(j).toString match {
                       case "Wall"   => grid.add(new ImageView(wall), i, j)
                       case "Path"   => grid.add(new ImageView(path), i, j)
