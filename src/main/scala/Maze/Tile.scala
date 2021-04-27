@@ -1,30 +1,14 @@
 package Maze
 
-trait Tile {
-
-  def updatePlayer(): Unit
-
-  def containsPlayer: Boolean
-
-}
+trait Tile
 
 object Wall extends Tile {
-
-  def updatePlayer(): Unit = ()
-
-  def containsPlayer = false
 
   override def toString = "Wall"
 
 }
 
 class Path extends Tile {
-
-  private var conPlayer = false
-
-  def updatePlayer(): Unit = conPlayer = !conPlayer
-
-  def containsPlayer = conPlayer
 
   override def toString = "Path"
 
@@ -38,21 +22,12 @@ class Bridge extends Path {
 
 object Goal extends Tile {
 
-  private var conPlayer = false
-
-  def updatePlayer(): Unit = conPlayer = !conPlayer
-
-  def containsPlayer = conPlayer
-
   override def toString = "Goal"
+
 }
 
 
 object BreadCrumb extends Tile {
-
-  def updatePlayer(): Unit = ()
-
-  def containsPlayer = false
 
   override def toString = "BreadCrumb"
 
@@ -60,21 +35,13 @@ object BreadCrumb extends Tile {
 
 object BridgeCrumbX extends Tile {
 
-  def updatePlayer(): Unit = ()
-
-  def containsPlayer = false
-
-  override def toString = "BridgeCrumb"
+  override def toString = "BridgeCrumbX"
 
 }
 
 object BridgeCrumbY extends Tile {
 
-  def updatePlayer(): Unit = ()
-
-  def containsPlayer = false
-
-  override def toString = "BridgeCrumb"
+  override def toString = "BridgeCrumbY"
 
 }
 

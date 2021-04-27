@@ -2,7 +2,7 @@ package Maze
 
 sealed abstract class Direction(val xStep: Int, val yStep: Int) {
 
-  def ! : Direction
+  def ! : Direction //opposite
 
 }
 

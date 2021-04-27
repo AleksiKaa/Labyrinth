@@ -2,13 +2,13 @@ package Maze
 
 import scala.reflect.ClassTag
 
-abstract class Grid[Tile: ClassTag](val x: Int, val y: Int) {
+abstract class Grid[T: ClassTag](val x: Int, val y: Int) {
 
   val size = x * y
 
-  def initialElements: Seq[Tile]
+  def initialElements: Seq[T]
 
-  private val contents: Array[Array[Tile]] = initialElements.toArray.grouped(this.x).toArray.transpose
+  private val contents: Array[Array[T]] = initialElements.toArray.grouped(this.x).toArray.transpose
 
   def content() = contents
 
@@ -21,7 +21,7 @@ abstract class Grid[Tile: ClassTag](val x: Int, val y: Int) {
 
   def contains(location: Position): Boolean = this.contains(location.x, location.y)
 
-  def update(pos: Position, tile: Tile) = {
+  def update(pos: Position, tile: T) = {
     require(this.contains(pos), "no such position")
     this.contents(pos.x)(pos.y) = tile
   }

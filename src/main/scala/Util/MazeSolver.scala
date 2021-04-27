@@ -99,9 +99,4 @@ class MazeSolver(game: Game) {
 
   def solution(playerPos: Position, goalPos: Position): Seq[Position] = solvePath(playerPos.x, playerPos.y, goalPos.x, goalPos.y, game.player.lastDirection, Seq())._2.init
 
-  def printSolveSeq(playerPos: Position, goalPos: Position) = {
-    val a = solvePath(playerPos.x, playerPos.y, goalPos.x, goalPos.y, this.game.player.lastDirection, Seq())._2
-    println(a + "\n" + a.length + " steps")
-  }
-
 }
