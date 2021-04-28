@@ -41,12 +41,11 @@ class MazeCreator(game: Game) {
             game.update(tile3, new Path)
             game.update(tile4, new Path)
           }
-        }
-        if (tile2.x > 0 && tile2.x < game.width - 1 && tile2.y > 0 && tile2.y < game.width - 1) {
-          if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Wall) {
+          else {
             game.update(tile1, new Path)
             game.update(tile2, new Path)
-            carve(tile2)
+            game.update(tile3, new Path)
+            game.update(tile4, new Path)
           }
         }
         count += 1
