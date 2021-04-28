@@ -53,6 +53,8 @@ class MazeSolver(game: Game) {
 
   def returnShorter[T](a: (Int, Seq[T]), b: (Int, Seq[T])) : (Int, Seq[T]) = if (a._1 < b._1) (a._1 + 1, a._2) else (b._1 + 1, b._2)
 
+  // same algorithm as in shortestPath, but also carries over the Positions that are traversed in the process
+
   def solvePath(x: Int, y: Int, goalX: Int, goalY: Int, lastDir: Direction, seq: Seq[Position]): (Int, Seq[Position]) = {
 
     val playerPos = new Position(x, y)

@@ -7,7 +7,7 @@ class Game(val width: Int){
   val size = width * width
   val pLoc = width - width / 2 - 1
   val player = new Player(new Position(pLoc, pLoc))
-  private val contents: Array[Array[Tile]] = initialElements.toArray.grouped(this.width).toArray.transpose
+  private val contents: Array[Array[Tile]] = initialElements.toArray.grouped(this.width).toArray.transpose // transforms initalElements into a square matrix
 
   def initialElements: Seq[Tile] = Seq.fill(this.size){Wall}
 
