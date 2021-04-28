@@ -29,23 +29,23 @@ class MazeCreator(game: Game) {
         val tile4 = tile3.neighbor(directions(dir))
 
         if (tile4.x > 0 && tile4.x < game.width - 1 && tile4.y > 0 && tile4.y < game.width - 1) {
-          if (game.elementAt(tile1) == Wall && game.elementAt(tile2).toString == "Path" && game.elementAt(tile3) == Wall && game.elementAt(tile4) == Wall) {
-            game.update(tile1, new Path)
-            game.update(tile2, new Bridge)
-            game.update(tile3, new Path)
-            game.update(tile4, new Path)
+          if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Path && game.elementAt(tile3) == Wall && game.elementAt(tile4) == Wall) {
+            game.update(tile1, Path)
+            game.update(tile2, Bridge)
+            game.update(tile3, Path)
+            game.update(tile4, Path)
             carve(tile4)
           }
-          else if (game.elementAt(tile2).toString == "Bridge") {
-            game.update(tile1, new Path)
-            game.update(tile3, new Path)
-            game.update(tile4, new Path)
+          else if (game.elementAt(tile2) == Bridge) {
+            game.update(tile1, Path)
+            game.update(tile3, Path)
+            game.update(tile4, Path)
           }
         }
         if (tile2.x > 0 && tile2.x < game.width - 1 && tile2.y > 0 && tile2.y < game.width - 1) {
           if (game.elementAt(tile1) == Wall && game.elementAt(tile2) == Wall) {
-            game.update(tile1, new Path)
-            game.update(tile2, new Path)
+            game.update(tile1, Path)
+            game.update(tile2, Path)
             carve(tile2)
           }
         }

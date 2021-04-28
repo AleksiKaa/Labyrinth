@@ -8,13 +8,13 @@ object Wall extends Tile {
 
 }
 
-class Path extends Tile {
+object Path extends Tile {
 
   override def toString = "Path"
 
 }
 
-class Bridge extends Path {
+object Bridge extends Tile {
 
   override def toString = "Bridge"
 
@@ -27,21 +27,8 @@ object Goal extends Tile {
 }
 
 
-object BreadCrumb extends Tile {
+object BreadCrumb extends Tile
 
-  override def toString = "BreadCrumb"
+object BridgeCrumbX extends Tile
 
-}
-
-object BridgeCrumbX extends Tile {
-
-  override def toString = "BridgeCrumbX"
-
-}
-
-object BridgeCrumbY extends Tile {
-
-  override def toString = "BridgeCrumbY"
-
-}
-
+object BridgeCrumbY extends Tile

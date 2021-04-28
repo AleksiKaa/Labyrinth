@@ -28,9 +28,10 @@ class Game(val width: Int){
   }
 
   def canMove(dir: Direction) = {
-    (elementAt(player.location.neighbor(dir)).toString == "Path" || elementAt(player.location.neighbor(dir)).toString == "Goal") && elementAt(player.location).toString != "Bridge" ||
-     elementAt(player.location.neighbor(dir)).toString == "Bridge" ||
-     elementAt(player.location).toString == "Bridge" && (dir == player.lastDirection || dir == player.lastDirection.! || player.lastDirection == NoDir)
+    (elementAt(player.location.neighbor(dir)) == Path ||                                                                                     //can move on Path
+     elementAt(player.location.neighbor(dir)) == Goal) && elementAt(player.location) == Path ||                                              //can only move to Goal from Path
+     elementAt(player.location.neighbor(dir)) == Bridge ||                                                                                   //can move to Bridge
+     elementAt(player.location) == Bridge && (dir == player.lastDirection || dir == player.lastDirection.! || player.lastDirection == NoDir) //can only move on Bridge in x- or y-direction
   }
 
   def playerMove(dir: Direction) = {

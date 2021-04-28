@@ -51,14 +51,14 @@ object GameApp extends JFXApp {
 
         button.setOnAction((t: ActionEvent) => {
 
-          def notValid(s: String) = s.toIntOption.isEmpty || s.toIntOption.get > 100 || s.toIntOption.get < 10
+          def notValid(s: String) = s.toIntOption.isEmpty || s.toIntOption.get > 80 || s.toIntOption.get < 10
 
           val textBox = textField.text.value
 
           if (notValid(textBox) && !buttonPressed) {
             buttonPressed = true
             val text1 = new Text() {
-              text = "Please enter a number from 10 to 100."
+              text = "Please enter a number from 10 to 80."
               fill = DarkRed
             }
             text1.relocate(250, 40)
@@ -101,11 +101,11 @@ object GameApp extends JFXApp {
 
                 for (i <- 0 until game.width) {
                   for (j <- 0 until game.width) {
-                    game.content()(i)(j).toString match {
-                      case "Wall"   => grid.add(new ImageView(wall), i, j)
-                      case "Path"   => grid.add(new ImageView(path), i, j)
-                      case "Bridge" => grid.add(new ImageView(bridge), i, j)
-                      case "Goal"   => grid.add(new ImageView(goal), i, j)
+                    game.content()(i)(j) match {
+                      case Wall   => grid.add(new ImageView(wall), i, j)
+                      case Path   => grid.add(new ImageView(path), i, j)
+                      case Bridge => grid.add(new ImageView(bridge), i, j)
+                      case Goal   => grid.add(new ImageView(goal), i, j)
                       case _             =>
                     }
                   }
@@ -133,7 +133,7 @@ object GameApp extends JFXApp {
                         val solution = mazeSolver.solution(game.player.location, mazeCreator.returnGoal)
                         solutionLength = solution.length
                         solution.foreach(pos => {
-                          if (game.elementAt(pos).toString == "Bridge") grid.add(new ImageView(darkblue), pos.x, pos.y)
+                          if (game.elementAt(pos) == Bridge) grid.add(new ImageView(darkblue), pos.x, pos.y)
                           else grid.add(new ImageView(blue), pos.x, pos.y)
                         })
                         grid.children.remove(player)            //
